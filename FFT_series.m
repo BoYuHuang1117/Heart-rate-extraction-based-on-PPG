@@ -10,6 +10,9 @@ function ratio = FFT_series(waveform,outDir,filename,part)
 % Add function to extract LF¡BHF component
 % LF : 0.04~0.15 Hz
 % HF : 0.15~0.4  Hz
+
+% Date : 2018.11.20
+% Delete the LF/HF calculation
 %% FFT
 global samplingRate    % fps samplingRate 
              
@@ -50,24 +53,7 @@ sent2 = strcat(sent2_1,sent2_2);
 
 text(max_freq + 0.1,max_amp - 0.03,{sent1,sent2})
 
-saveas(gca,[outDir '/' filename '-' part '.jpg']);
-
-%% LF/HF extraction
-for i = 1:length(f)/2
-    if f(i) < 0.04 && 0.04 < f(i+1)
-        L1 = i;
-    end
-    if f(i) < 0.15 && 0.15 < f(i+1)
-        L2 = i;
-    end
-    if f(i) < 0.4 && 0.4 < f(i+1)
-        L3 = i;
-    end
-end
-
-LF = sum(p1(L1 + 1:L2));
-HF = sum(p1(L2 + 1:L3));
-ratio = LF/HF;
+saveas(gca,[outDir '/' filename '-' part '.png']);
 
 %% double-sided
 % figure 
